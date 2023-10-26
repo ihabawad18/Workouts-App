@@ -22,7 +22,7 @@ const Home = () => {
             {error && <div className="error">{error}</div>}
             <div className="workouts">
                 {isLoading && <div className="loading">Loading....</div>}
-                {workouts.length===0 && (<div className="no_workouts">
+                {workouts.length===0 && !isLoading && (<div className="no_workouts">
                     You have no workouts please add some by submitting the form!
                 </div>)}
                 {workouts && workouts.map((workout)=>(

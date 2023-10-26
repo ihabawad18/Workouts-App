@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 
 const getAllWorkouts = async (req,res) => {
     try{
-        const workouts = await Workout.find({user_id:req}).sort({createdAt: -1});
+        const workouts = await Workout.find({user_id:req.user}).sort({createdAt: -1});
         res.status(200).json(workouts);
     }
     catch(err){
@@ -84,7 +84,10 @@ const addWorkout = async (req,res) => {
         if(emptyFields.length > 0){
             return res.status(400).json({error:"Please fill all input fields",emptyFields});
         }
-        console.log(req.user);
+        if(Number(load)<0 || Number(reps)<0){
+            return res.status(400).json({error:"Please enter positive value in load and reps",emptyFields});
+        }
+        
         const user_id = req.user;
         const workoutDoc = await Workout.create({title,load,reps,user_id});
         res.status(201).json(workoutDoc);

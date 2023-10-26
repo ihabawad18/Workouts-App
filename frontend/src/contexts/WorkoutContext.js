@@ -19,7 +19,7 @@ export const workoutsReducer = (state,action)=>{
             }
         case 'REMOVE_ALL':
             return {
-                ...state,workouts:null
+                ...state,workouts:[]
             }
         default:
             return state;
