@@ -3,8 +3,9 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { useAuthContext } from '../hooks/useAuthContext';
+import { useSnackbar } from 'notistack';
 const Workout = ({workout}) => {
-    // const date = (Date.now()-workout.createdAt)/(1000*60);
+    const {enqueueSnackbar} = useSnackbar();
     const {dispatch} = useWorkoutsContext();
     const {user} = useAuthContext();
     const deleteWorkout = async () =>{
@@ -12,7 +13,6 @@ const Workout = ({workout}) => {
         if(!user){
             return ;
         }
-
         const response = await fetch('http://localhost:4000/api/v1/workouts/'+workout._id,{
             method: 'DELETE',
             headers:{
@@ -20,6 +20,7 @@ const Workout = ({workout}) => {
             }
         })
         if(response.ok){
+            enqueueSnackbar('Workout deleted successfully',{variant:'success'});
             dispatch({type:'DELETE_WORKOUT',payload:workout._id});
         }
     }

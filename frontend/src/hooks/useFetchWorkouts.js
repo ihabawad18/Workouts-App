@@ -7,7 +7,6 @@ export const useFetchWorkouts = ()=>{
     const [error,setError] = useState(null);
     const [isLoading,setisLoading] = useState(false);
     const {user} = useAuthContext();
-
     const fetchWorkouts = async () =>{
         setisLoading(true);
         setError(null);
@@ -22,7 +21,6 @@ export const useFetchWorkouts = ()=>{
         if(response.ok){
             setisLoading(false);
             dispatch({type:'SET_WORKOUTS',payload:json});
-            console.log(json);
         }
         if(!response.ok){
             setError(json.error);
