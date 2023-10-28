@@ -37,7 +37,7 @@ const updateWorkout = async (req,res) => {
         if(!mongoose.Types.ObjectId.isValid(req.params.id)){
             res.status(404).json({error:"Invalid Id"});
         }
-        const workoutDoc = await Workout.findByIdAndUpdate(req.params.id,req.body,{new:true});
+        const workoutDoc = await Workout.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true});
         if(!workoutDoc){
             throw new Error("No such workout");            
         }
